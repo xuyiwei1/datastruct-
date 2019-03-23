@@ -66,9 +66,39 @@ bool insertArr(struct Arr * pArr,ElemType x ,ElemType pos){
 	
 }
 
+bool appendArr(struct Arr * pArr , ElemType val){
+	if(IsFull(pArr)){
+		printf("arry is full \n");
+		return false;
+	}
+	pArr->pBase[pArr->cnt] = val;
+	pArr->cnt++;
+	return true;
+}
+
+void travserseArr(struct Arr * pArr){
+	int i;
+	if(IsEmpty(pArr)){
+		printf("arry is empty, no value\n");
+	}else{
+		for(i = 0 ; i<pArr->cnt ; i++){
+			printf("第%d个值为%d \n",i+1,pArr->pBase[i]);
+		}
+	}
+}
+
 int main(void){
 	
+	struct Arr arr;
+	int val;
+	initArr(&arr,8);
+	appendArr(&arr, 1);
+	appendArr(&arr, 2);
+	appendArr(&arr, 3);
+	appendArr(&arr, 4);
+	appendArr(&arr, 5);
 	
+	travserseArr(&arr);
 	return 0;
 }
 
