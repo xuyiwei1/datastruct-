@@ -1,3 +1,73 @@
+/*
+
+	动态先序创建一个二叉树 复习 
+
+*/ 
+#include <stdio.h>
+#include <malloc.h>
+
+typedef char ElemType;
+
+typedef struct BiTNode {
+	char data;
+	struct BiTNode * lchild , *rchild;
+} BiTree, * pBiTree;
+
+CreateBiTree(pBiTree * T){
+	char c;
+	scanf("%c",&c);
+	if(' ' == c){
+		*T = NULL;
+	} else{
+		*T = (BiTree *)malloc(sizeof(BiTree));
+		(*T)->data = c;
+		CreateBiTree(&(*T)->lchild);
+		CreateBiTree(&(*T)->rchild);
+	}
+}
+
+visit(char c,int level){
+	printf("%c节点是第%d层\n",c,level);
+}
+
+PreTraverse(pBiTree T , int level){
+	
+	if(T)
+	{
+		visit(T->data, level);
+		
+		PreTraverse(T->lchild,level+1);
+		
+		PreTraverse(T->rchild , level+1);
+	}
+}
+
+
+
+
+int main() {
+	
+	int level = 1;
+	pBiTree T = NULL;
+	CreateBiTree(&T);
+	PreTraverse(T,level);
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6,7 +76,7 @@
 	2019年3月25日 21:09:09 正确算法 可能是因为文件的后缀名引起的c++不行 
 
 */
-
+/*
 
 #include <stdio.h>
 #include <malloc.h>
@@ -60,7 +130,7 @@ int main(){
 	
 	return 0;
 }
-
+*/
 
 /*
 	
