@@ -1,9 +1,190 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
+#define MaxSize 50
+
+typedef struct BiNode * ElemType;
+
+//定义一个二叉树节点的结构体类型 
+struct BiNode{
+	char data;
+	struct BiNode * rchild ;
+	struct BiNode * lchild;
+};
+
+typedef struct {
+	ElemType data[MaxSize];//存放EleType类型的数据 
+	int top; //栈顶元素的索引（下标) 
+}sqstack;
+
+struct BiNode * CreateBTree(void){
+
+	struct BiNode * pA = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pB = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pC = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pD = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pE = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pF = (struct BiNode *)malloc(sizeof(struct BiNode));
+	struct BiNode * pG = (struct BiNode *)malloc(sizeof(struct BiNode));
+	
+	pA->data = 'A';
+	pB->data = 'B';
+	pC->data = 'C';
+	pD->data = 'D';
+	pE->data = 'E';
+	pF->data = 'F';
+	pG->data = 'G';
+	
+	pA->lchild = pB;
+	pA->rchild = pC;
+	pB->lchild = pD;
+	pB->rchild = NULL;
+	pC->lchild = pE;
+	pC->rchild = pF;
+	pD->lchild = NULL;
+	pD->rchild = pG;
+	pE->lchild = pE->rchild = NULL;
+	pF->lchild = pF->rchild = NULL;
+	pG->lchild = pG->rchild = NULL;
+	
+	return pA;
+	
+}
+
+
+void InitSqStack (sqstack * S){
+	S->top = -1;
+	return;
+}
+
+bool IsFull(sqstack * S){
+	if(S->top == MaxSize-1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool IsEmpty(sqstack * S){
+	if(S->top == -1){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+bool push(sqstack * S , ElemType data){
+	if(IsFull(S)){
+		printf("栈内元素已经满了\n");
+		return false;
+	}
+	S->data[++S->top] = data;
+	return true;
+}
+
+ElemType pop(sqstack * S ){
+	ElemType data; 
+	if(IsEmpty(S)){
+		printf("栈为空\n");
+		return NULL;
+	}else{
+		data = S->data[S->top--];
+		return data;
+	}
+}
+
+void PreTravserse(struct BiNode * b){
+	sqstack S;
+	InitSqStack(&S);
+	struct BiNode * p = b; //不能操作指向根节点的指针，可以操作b 
+	while( p || !IsEmpty(&S)){
+		while(p){
+			printf("%c\n",p->data);
+			push(&S,p);
+			p = p->lchild;
+		}
+		if(!IsEmpty(&S)){
+			p = pop(&S);
+			p = p->rchild;
+		}
+		
+	}
+}
+
+void InTravsere(struct BiNode * b){
+	sqstack S;
+	InitSqStack(&S);
+	struct BiNode * p = b;
+	while(p||!IsEmpty(&S)){
+		while(p){
+			push(&S,p);
+			p = p->lchild;
+		}
+		p = pop(&S);
+		printf("%c \n",p->data);
+		p = p->rchild;
+	}
+}
+
+int main(void){
+	
+	struct BiNode * T = CreateBTree();
+	PreTravserse(T);
+	printf("\n");
+	InTravsere(T);
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 	
 	2019年3月21日 22:31:05 v1.0 实现非递归的前序输出 
 	bug:输出树节点的数据的同时会输出树节点的地址 2019年3月21日 22:32:32解决：Pop()函数中多谢了一个输出语句 
 
 */
+
+/* 
+
 //顺序栈的基本操作
 #include <stdio.h>
 #include <malloc.h>
@@ -177,4 +358,4 @@ int main()
 	return 0;
 }
 
-
+*/

@@ -1,3 +1,77 @@
+/*
+
+	2019年3月24日 20:03:25静态循环队列的复习  静态循环队列中保留一个元素用来判断队列是否已满 
+
+*/
+
+#include <stdio.h>
+#include <malloc.h>
+
+struct Queue{
+	int * pBase; //第一个元素的地址
+	int rear;
+	int front; 
+	
+}QUEUE;
+
+void init_queue(struct Queue * pQ){
+	pQ->pBase = (int *)malloc(sizeof(int)*6);//给整型数组分配空间
+	pQ->front = 0;
+	pQ->rear = 0;
+	return; 
+}
+
+bool en_queue(Queue * pQ,int val ){
+	if((pQ->rear+1)%6 == pQ->front){ //注意移动元素下标要这样移动因为是队列是循环的 
+		printf("队列已满\n");
+		return false;
+	}
+	else{
+		pQ->pBase[pQ->rear] = val;
+		pQ->rear = (pQ->rear+1)%6;
+		return true;
+	}
+}
+
+bool out_queue (Queue * pQ , int *  val){
+	if(pQ->rear == pQ->front){
+		printf("队列为空\n");
+		return false; 
+	}
+	else{
+		*val = pQ->pBase[pQ->front];
+		pQ->front = (pQ->front+1)%6;
+		return true;
+	}
+}
+
+void travserse_queue(Queue * pQ){
+	int i = pQ->front;
+	while(i!=pQ->rear){
+		printf("%d ",pQ->pBase[i]);
+		i = (i+1)%6;
+	}
+	printf("\n");
+	return ;
+}
+
+
+int main(void){
+	
+	
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+/*
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -65,3 +139,4 @@ bool out_queue(QUEUE * pQ, int * pVal){
 		return true;
 	}
 }
+*/
