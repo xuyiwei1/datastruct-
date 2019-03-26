@@ -1,9 +1,119 @@
 /*
 
+	2019年3月26日 22:45:34 复习 
+
+*/
+
+#include <stdio.h>
+#include <malloc.h>
+#include <stdlib.h>
+
+typedef struct Node {
+	int data;
+	struct Node * pNext;
+}NODE , * PNODE;
+
+typedef struct Stack {
+	struct Node * pBottom;
+	struct Node * pTop;
+}STACK , * PSTACK;
+
+void initStack(PSTACK pS)
+{
+	pS->pBottom = (PNODE)malloc(sizeof(NODE));
+	if(pS->pBottom == NULL){
+		printf("动态分配内存失败\n");
+		exit(-1);
+	}
+	pS->pTop = pS->pBottom;
+	pS->pBottom->pNext = NULL;
+	return;
+}
+
+void push(PSTACK pS,int val){
+	PNODE pNew = (PNODE)malloc(sizeof(NODE));
+	
+	if(pNew == NULL){
+		printf("分配内存失败！ \n");
+		exit(-1) ;
+	}
+	
+	pNew->data = val;
+	pNew->pNext = pS->pTop;
+	pS->pTop = pNew;
+	 
+}
+
+bool pop(PSTACK pS , int *val){
+	if(pS->pBottom == pS->pTop){
+		printf("栈为空，出栈失败 \n");
+		return false;
+	}
+	PNODE q = pS->pTop;
+	pS->pTop = pS->pTop->pNext;
+	*val = q->data;
+	free(q);
+	q = NULL;
+	return true;
+}
+
+void TravserseStack(PSTACK pS){
+	PNODE r = pS->pTop;
+	while(r != pS->pBottom){
+		printf("%d \n",r->data);
+		r = r->pNext;
+	}
+	return ;
+}
+
+
+int main(void){
+	
+	
+	
+	return 0;
+} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 		2019年3月17日 11:09:00 
 
 */
 
+
+/*
 #include <stdio.h>
 #include <malloc.h>
 #include <stdlib.h>
@@ -124,13 +234,7 @@ void clear(PSTACK pS){
 	return ;
 }
 
-
-
-
-
-
-
-
+*/
 
 
 

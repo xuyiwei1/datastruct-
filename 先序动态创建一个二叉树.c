@@ -50,7 +50,7 @@ int main() {
 	int level = 1;
 	pBiTree T = NULL;
 	CreateBiTree(&T);
-	PreTraverse(T,level);
+	PreTraverse(T,level);	
 	
 	return 0;
 }
